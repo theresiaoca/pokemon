@@ -26,8 +26,12 @@ export const PokemonProvider = (props: any) => {
   const releasePokemon = (data: { name: string; nickname: string }) => {
     const tmpPokemon = myPokemon.filter(
       (pokemon) =>
-        pokemon.name !== data.name && pokemon.nickname !== data.nickname
+        !(
+          pokemon.name.toLowerCase() === data.name.toLowerCase() &&
+          pokemon.nickname.toLowerCase() === data.nickname.toLowerCase()
+        )
     );
+
     localStorage.setItem("my_pokemon", JSON.stringify(tmpPokemon));
     setMyPokemon(tmpPokemon);
   };
