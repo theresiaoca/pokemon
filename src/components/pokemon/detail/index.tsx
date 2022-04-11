@@ -8,6 +8,7 @@ import {
   Container,
   Divider,
   EmptyStatsBar,
+  ErrorLabel,
   FilledStatsBar,
   ImageContainer,
   InfoContainer,
@@ -43,13 +44,15 @@ const INITIAL_DATA: PokemonDetailType = {
 };
 
 const PokemonDetail = () => {
-  const { addPokemon } = useContext(PokemonContext);
+  const { myPokemon, addPokemon } = useContext(PokemonContext);
   const { name } = useParams();
   const location = useLocation();
   const [pokemon, setPokemon] = useState<PokemonDetailType>(INITIAL_DATA);
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const [isFailed, setIsFailed] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [pokemonNickname, setPokemonNickname] = useState("");
+  const [errMessage, setErrMessage] = useState("");
 
   const [getPokemonDetail, { loading }] =
     useLazyQuery<GetPokemonDetailResponseType>(GET_POKEMON_DETAIL, {
@@ -79,6 +82,17 @@ const PokemonDetail = () => {
 
   const handleCatch = (isSubmit: boolean) => {
     if (isSubmit) {
+      const duplicate = myPokemon.find(
+        (pokemon) =>
+          pokemon.name === name && pokemon.nickname === pokemonNickname
+      );
+      if (duplicate) {
+        setErrMessage(
+          `${name} with nickname ${pokemonNickname} already exists!`
+        );
+        setIsError(true);
+        return;
+      }
       const newPokemon: MyPokemonType = {
         id: pokemon.id,
         image: pokemon.image,
@@ -87,6 +101,9 @@ const PokemonDetail = () => {
       };
       addPokemon(newPokemon);
     }
+    setPokemonNickname("");
+    setErrMessage("");
+    setIsError(false);
     setIsOpenDialog(false);
   };
 
@@ -108,7 +125,9 @@ const PokemonDetail = () => {
         type="text"
         onChange={handleChange}
         value={pokemonNickname}
+        isError={isError}
       />
+      <ErrorLabel>{errMessage}</ErrorLabel>
     </div>
   );
 

@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 
 import {
   ButtonContainer,
@@ -8,6 +7,7 @@ import {
   Container,
   IDContainer,
   ImageContainer,
+  LinkButton,
   TitleContainer,
 } from "../styled";
 import { ButtonAction } from "components/palette/Dialog/DialogCss";
@@ -45,7 +45,9 @@ const MyPokemon = () => {
         <div>
           <TitleContainer>You haven't catch any pokemon</TitleContainer>
           <ButtonContainer>
-          <ButtonAction width={"10%"}><Link to={"/"}>Catch Now</Link></ButtonAction>
+            <LinkButton to={"/"}>
+              <ButtonAction>Catch Now</ButtonAction>
+            </LinkButton>
           </ButtonContainer>
         </div>
       ) : (
@@ -54,7 +56,12 @@ const MyPokemon = () => {
             <Card key={index}>
               <IDContainer>{pokemon.id}</IDContainer>
               <ImageContainer>
-                <img src={pokemon.image} width={100} height={100} alt="pokemon"/>
+                <img
+                  src={pokemon.image}
+                  width={100}
+                  height={100}
+                  alt="pokemon"
+                />
               </ImageContainer>
               <TitleContainer>{capitalize(pokemon.name)}</TitleContainer>
               <TitleContainer>({pokemon.nickname})</TitleContainer>

@@ -6,6 +6,7 @@ export type InputProps = {
   value: string | number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
+  isError?: boolean;
 };
 
 const Input = ({
@@ -14,6 +15,7 @@ const Input = ({
   value,
   onChange,
   placeholder = "Input Here",
+  isError = false,
 }: InputProps) => {
   return (
     <div>
@@ -23,6 +25,7 @@ const Input = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        isError={isError}
       />
     </div>
   );

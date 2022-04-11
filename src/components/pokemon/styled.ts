@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   padding: 50px 0;
@@ -85,6 +86,14 @@ export const ButtonContainer = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: center;
+`;
+
+export const LinkButton = styled(Link)`
+  width: 20%;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export type StyledButtonProps = {
@@ -219,4 +228,9 @@ export const FilledStatsBar = styled.div`
   height: 10px;
   border-radius: 20px;
   background: #fabe3c;
+`;
+
+export const ErrorLabel = styled.div`
+  font-size: 14px;
+  color: red;
 `;
