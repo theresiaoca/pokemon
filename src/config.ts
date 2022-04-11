@@ -1,0 +1,1 @@
+export const GRAPHQL_URL = 'https://graphql-pokeapi.graphcdn.app/'
